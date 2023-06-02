@@ -9,4 +9,10 @@ typedef struct Queue {
     int size;
 } Queue;
 
+void new_queue(Queue *queue);
+
+void to_queue(Queue *queue, Ship *ship);
+
+Node_Ship *unqueue(Queue *queue);
+
 #endif //PORT_SIMULATOR_QUEUE_H
