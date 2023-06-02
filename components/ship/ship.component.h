@@ -11,4 +11,12 @@ typedef struct Ship {
     Stack stacks[STACKS_QUANTITY];
 } Ship;
 
+/*
+
+_______||10||___
+\----------300-|
+ \____________/
+~~~~~~~~~~~~~~~~~~
+*/
+
 #endif //PORT_SIMULATOR_SHIP_COMPONENT_H

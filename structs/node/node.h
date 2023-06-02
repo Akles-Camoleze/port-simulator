@@ -4,18 +4,15 @@
 #include "../../components/container/container.component.h"
 #include "../../components/ship/ship.component.h"
 
-#define DECLARE_NODE_TYPE(T) \
+#define DECLARE_NODE_TYPE(T, t) \
 typedef struct Node_##T { \
-    T data; \
+    T t; \
     struct Node_##T *next; \
 } Node_##T;
 
-DECLARE_NODE_TYPE(Container)
-DECLARE_NODE_TYPE(Ship)
+DECLARE_NODE_TYPE(Container, container)
+DECLARE_NODE_TYPE(Ship, ship)
 
 typedef void (*print_node_data)(void*);
-
-typedef void (*free_node)(void*);
-
 
 #endif //PORT_SIMULATOR_NODE_H
