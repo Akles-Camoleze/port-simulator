@@ -15,6 +15,6 @@ typedef struct Ship Ship;
 DECLARE_NODE_TYPE(Container, container)
 DECLARE_NODE_TYPE(Ship, ship)
 
-typedef void (*print_node_data)(void*);
+typedef void (*print_node_data)(void *);
 
 #endif //PORT_SIMULATOR_NODE_H

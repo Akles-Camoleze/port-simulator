@@ -24,3 +24,12 @@ Node_Ship *unqueue(Queue *queue) {
     rm_ship->next = NULL;
     return rm_ship;
 }
+
+void print_queue(Queue *queue) {
+    Node_Ship *aux = queue->front;
+    char *printer = NULL;
+    while (!empty(1, aux)) {
+        printf("\n\t\"%03d\" {\n\t\t\"carga\": %02d,\n\t\t\"espera\": 15\n\t},", aux->ship->id, aux->ship->load);
+        aux = aux->next;
+    }
+}

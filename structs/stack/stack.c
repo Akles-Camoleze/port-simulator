@@ -23,3 +23,13 @@ Node_Container *pop(Stack *stack) {
     rm_node->next = NULL;
     return rm_node;
 }
+
+void print_stack(Stack *stack) {
+    Node_Container *aux = stack->top;
+    printf("\n---------------------");
+    while (!empty(1, aux)) {
+        printf("\n[|||]");
+        aux = aux->next;
+    }
+    printf("\n---------------------");
+}
