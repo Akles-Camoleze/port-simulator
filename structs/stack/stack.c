@@ -7,7 +7,7 @@ void new_stack(Stack *stack) {
 
 void push(Stack *stack, Container *container) {
     Node_Container *new_node = (Node_Container *) malloc(sizeof(Node_Container));
-    new_node->container = *container;
+    new_node->container = container;
     new_node->next = NULL;
     if (!empty(1, (void *) stack->top)) {
         new_node->next = stack->top;

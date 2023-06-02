@@ -6,9 +6,11 @@
 
 #define DECLARE_NODE_TYPE(T, t) \
 typedef struct Node_##T { \
-    T t; \
+    T *t; \
     struct Node_##T *next; \
 } Node_##T;
+
+typedef struct Ship Ship;
 
 DECLARE_NODE_TYPE(Container, container)
 DECLARE_NODE_TYPE(Ship, ship)

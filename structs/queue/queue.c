@@ -7,7 +7,7 @@ void new_queue(Queue *queue) {
 
 void to_queue(Queue *queue, Ship *ship) {
     Node_Ship *new_ship = (Node_Ship *) malloc(sizeof(Node_Ship));
-    new_ship->ship = *ship;
+    new_ship->ship = ship;
     new_ship->next = NULL;
     if (empty(1, (void *) queue->rear, (void *) queue->rear)) {
         queue->front = new_ship;

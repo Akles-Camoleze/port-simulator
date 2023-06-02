@@ -4,18 +4,15 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "../node/node.h"
-#include "../../components/container/container.component.h"
 #include "../../utils/utils.h"
 
-enum STACKS_SIZE {
-    FOR_SHIP = 4,
-    FOR_CROSS
-};
+typedef struct Node_Container Node_Container;
 
 typedef struct Stack {
     Node_Container *top;
     int size;
 } Stack;
+
 
 void new_stack(Stack *stack);
 

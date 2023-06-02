@@ -1,6 +1,7 @@
 #ifndef PORT_SIMULATOR_QUEUE_H
 #define PORT_SIMULATOR_QUEUE_H
 
+#include <stdlib.h>
 #include "../node/node.h"
 
 typedef struct Queue {

@@ -4,11 +4,13 @@
 
 #include "../../structs/stack/stack.h"
 
+typedef struct Stack Stack;
+
 typedef struct Ship {
     int id;
     int time_stay;
     int load;
-    Stack stacks[STACKS_QUANTITY];
+    Stack *stacks;
 } Ship;
 
 /*
