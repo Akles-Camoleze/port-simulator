@@ -6,11 +6,13 @@
 
 typedef struct Cross {
     Stack *stack;
-    bool active;
+    int time_left;
 } Cross;
 
 typedef struct Cross *Crosses;
 
 void initialize_crosses(Crosses *crosses);
+
+Cross *get_cross(Crosses *crosses);
 
 #endif //PORT_SIMULATOR_CROSS_COMPONENT_H

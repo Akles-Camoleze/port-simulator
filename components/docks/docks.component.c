@@ -35,7 +35,7 @@ void show_mooring_areas(Docks *docks) {
     printf("\n}");
 }
 
-void hoist(Docks *docks) {
+void hoist(Docks *docks, Crosses *crosses) {
     for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
         Node_Ship *node = docks->dock[i].front;
         if (!empty(1, node)) {
@@ -43,7 +43,13 @@ void hoist(Docks *docks) {
             Stack *stacks = ship->stacks;
             Stack *last_stack = stacks + STACKS_SHIP_QUANTITY - 1;
             while (stacks != last_stack && stacks->size == 0) stacks++;
-            if(pop(stacks) != NULL) ship->load--;
+            Node_Container *popped = pop(stacks);
+            if (popped != NULL) {
+                STACK_SIZE max = FOR_CROSS;
+                Cross *cross = get_cross(crosses);
+                push(cross->stack, popped->container, max);
+                ship->load--;
+            }
             if (ship->load == 0) {
                 unqueue(&(docks->dock[i]));
             }

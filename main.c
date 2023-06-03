@@ -26,7 +26,7 @@ int main() {
             to_queue(smaller, ship);
         }
         show_mooring_areas(&docks);
-        hoist(&docks);
+        hoist(&docks, &crosses);
     } while (getchar() == '\n');
 
     return 0;
