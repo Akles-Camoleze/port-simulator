@@ -14,10 +14,14 @@ typedef struct Stack {
     int size;
 } Stack;
 
+typedef enum STACK_SIZE {
+    FOR_SHIP = 4,
+    FOR_CROSS = 5
+} STACK_SIZE;
 
 void new_stack(Stack *stack);
 
-void push(Stack *stack, Container *container);
+void push(Stack *stack, Container *container, int max);
 
 Node_Container *pop(Stack *stack);
 

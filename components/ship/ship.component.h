@@ -1,6 +1,6 @@
 #ifndef PORT_SIMULATOR_SHIP_COMPONENT_H
 #define PORT_SIMULATOR_SHIP_COMPONENT_H
-#define STACKS_QUANTITY 4
+#define STACKS_SHIP_QUANTITY 4
 
 #include "../../structs/stack/stack.h"
 
@@ -12,6 +12,10 @@ typedef struct Ship {
     int load;
     Stack *stacks;
 } Ship;
+
+Ship *new_ship();
+
+void get_containers(Ship *ship);
 
 /*
 

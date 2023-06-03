@@ -2,9 +2,11 @@
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cert-msc50-cpp"
+
 int gen_number(int min, int max) {
     return min + rand() % (max - min + 1);
 }
+
 #pragma clang diagnostic pop
 
 bool empty(int n, ...) {
@@ -19,4 +21,12 @@ bool empty(int n, ...) {
     }
     va_end(args);
     return true;
+}
+
+void sleep_milliseconds(unsigned long milliseconds) {
+#ifdef _WIN32
+    Sleep(milliseconds);
+#else
+    usleep(milliseconds * 1000);
+#endif
 }

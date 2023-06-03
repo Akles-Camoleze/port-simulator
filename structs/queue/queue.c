@@ -23,6 +23,7 @@ Node_Ship *unqueue(Queue *queue) {
     Node_Ship *rm_ship = queue->front;
     queue->front = queue->front->next;
     rm_ship->next = NULL;
+    queue->size--;
     return rm_ship;
 }
 

@@ -5,7 +5,8 @@ void new_stack(Stack *stack) {
     stack->size = 0;
 }
 
-void push(Stack *stack, Container *container) {
+void push(Stack *stack, Container *container, int max) {
+    if (stack->size == max) return;
     Node_Container *new_node = (Node_Container *) malloc(sizeof(Node_Container));
     new_node->container = container;
     new_node->next = NULL;
@@ -21,6 +22,7 @@ Node_Container *pop(Stack *stack) {
     Node_Container *rm_node = stack->top;
     stack->top = stack->top->next;
     rm_node->next = NULL;
+    stack->size--;
     return rm_node;
 }
 
