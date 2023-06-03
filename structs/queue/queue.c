@@ -15,6 +15,7 @@ void to_queue(Queue *queue, Ship *ship) {
         queue->rear->next = new_ship;
     }
     queue->rear = new_ship;
+    queue->size++;
 }
 
 Node_Ship *unqueue(Queue *queue) {
@@ -27,9 +28,19 @@ Node_Ship *unqueue(Queue *queue) {
 
 void print_queue(Queue *queue) {
     Node_Ship *aux = queue->front;
-    char *printer = NULL;
+    char comma = ',';
     while (!empty(1, aux)) {
-        printf("\n\t\"%03d\" {\n\t\t\"carga\": %02d,\n\t\t\"espera\": 15\n\t},", aux->ship->id, aux->ship->load);
+        if (aux->next == NULL) comma = 0;
+        printf("\n\t\t\t{\n"
+               "\t\t\t\t\"id\":%d,\n"
+               "\t\t\t\t\"carga\":%d,\n"
+               "\t\t\t\t\"espera\":%d\n"
+               "\t\t\t}%c",
+               aux->ship->id,
+               aux->ship->load,
+               aux->ship->time_stay,
+               comma
+        );
         aux = aux->next;
     }
 }

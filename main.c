@@ -4,34 +4,44 @@
 #include "structs/stack/stack.h"
 #include "structs/queue/queue.h"
 #include "utils/utils.h"
+#include "components/mooring_area/mooring_area.component.h"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cert-msc51-cpp"
+#pragma ide diagnostic ignored "EndlessLoop"
+
 int main() {
     srand(time(NULL));
-    Queue queue;
-    new_queue(&queue);
+    MooringAreas areas;
+    initialize_areas(&areas);
 
-    Ship *new_container1 = (Ship *) malloc(sizeof(Container));
-    new_container1->id = gen_number(1, 999);
-    new_container1->load = gen_number(4, 16);
-    to_queue(&queue, new_container1);
+    do {
+        int ships = gen_number(1, 4);
+        for (int i = 0; i < ships; ++i) {
+            Queue *smaller = get_smaller_queue(&areas);
+            Ship *ship = (Ship *) malloc(sizeof(Ship));
+            ship->id = gen_number(1, 999);
+            ship->load = gen_number(4, 16);
+            ship->time_stay = gen_number(1, 50);
+            to_queue(smaller, ship);
+        }
+    } while (getchar() == '\n');
 
-    Ship *new_container2 = (Ship *) malloc(sizeof(Container));
-    new_container2->id = gen_number(1, 999);
-    new_container2->load = gen_number(4, 16);
-    to_queue(&queue, new_container2);
+    printf("{");
+    char comma = ',';
+    for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
+        if(i == MOORING_AREA_QUANTITY - 1) comma = 0;
+        printf("\n\t\"%d\": {\n"
+               "\t\t\"navios\": [",
+               i + 1
+        );
+        print_queue(&(areas.mooring_area[i]));
+        printf("\n\t\t]");
+        printf("\n\t}%c", comma);
+    }
+    printf("\n}");
 
-    Ship *new_container3 = (Ship *) malloc(sizeof(Container));
-    new_container3->id = gen_number(1, 999);
-    new_container3->load = gen_number(4, 16);
-    to_queue(&queue, new_container3);
-
-    Ship *new_container4 = (Ship *) malloc(sizeof(Container));
-    new_container4->id = gen_number(1, 999);
-    new_container4->load = gen_number(4, 16);
-    to_queue(&queue, new_container4);
-    print_queue(&queue);
     return 0;
 }
+
 #pragma clang diagnostic pop
