@@ -45,6 +45,7 @@ void hoist(Docks *docks, Crosses *crosses) {
                 STACK_SIZE max = FOR_CROSS;
                 Cross *cross = cross_handler(crosses, increase);
                 push(&cross->stack, popped->container, max);
+                if (cross->stack.size == 5) cross->time_left = 2;
                 ship->load--;
             }
             if (ship->load == 0) {

@@ -20,11 +20,7 @@ Cross *cross_handler(Crosses *crosses, void (*operation)(Crosses *, Cross *, int
 
 void increase(Crosses *crosses, Cross *last_cross, int size) {
     for (Crosses *cross = crosses; *cross <= last_cross; (*cross)++) {
-        if ((*cross)->stack.size == size || (*cross)->time_left != 0) {
-            if ((*cross)->time_left == 0) {
-                (*cross)->time_left = 2;
-            }
-        } else {
+        if ((*cross)->stack.size != size && (*cross)->time_left == 0) {
             break;
         }
         if (*cross == last_cross) break;
