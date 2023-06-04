@@ -25,7 +25,25 @@ int main() {
             Queue *smaller = get_smaller_queue(&docks);
             to_queue(smaller, ship);
         }
+        printf("{\n");
+        printf("  \"travessas\": [");
+        char comma = ',';
+        for (int i = 0; i < CROSS_QUANTITY; ++i) {
+            if (i == CROSS_QUANTITY - 1) comma = 0;
+            printf("\n    {"
+                   "\n      \"quantidadeContainer\": %d,"
+                   "\n      \"tempoDeEspera\": %d"
+                   "\n    }%c",
+                   crosses[i].stack.size,
+                   crosses[i].time_left,
+                   comma
+            );
+        }
+        printf("\n  ],");
+        printf("\n  \"docas\": [");
         show_mooring_areas(&docks);
+        printf("\n  ]");
+        printf("\n}");
         cross_handler(&crosses, decrease);
         hoist(&docks, &crosses);
     } while (getchar() == '\n');

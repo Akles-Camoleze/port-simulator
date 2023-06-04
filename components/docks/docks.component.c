@@ -18,21 +18,18 @@ Queue *get_smaller_queue(Docks *docks) {
 }
 
 void show_mooring_areas(Docks *docks) {
-    printf("{");
     char comma = ',';
     for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
         if (i == MOORING_AREA_QUANTITY - 1) comma = 0;
-        printf("\n  \"%d\": {\n"
-               "    \"quantidadeNavios\": %d,\n"
-               "    \"navios\": [",
-               i + 1,
+        printf("\n    {\n"
+               "      \"quantidadeNavios\": %d,\n"
+               "      \"navios\": [",
                docks->dock[i].size
         );
         print_queue(&(docks->dock[i]));
-        printf("\n    ]");
-        printf("\n  }%c", comma);
+        printf("\n      ]");
+        printf("\n    }%c", comma);
     }
-    printf("\n}");
 }
 
 void hoist(Docks *docks, Crosses *crosses) {
@@ -47,7 +44,7 @@ void hoist(Docks *docks, Crosses *crosses) {
             if (popped != NULL) {
                 STACK_SIZE max = FOR_CROSS;
                 Cross *cross = cross_handler(crosses, increase);
-                push(cross->stack, popped->container, max);
+                push(&cross->stack, popped->container, max);
                 ship->load--;
             }
             if (ship->load == 0) {
