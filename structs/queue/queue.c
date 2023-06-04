@@ -32,11 +32,11 @@ void print_queue(Queue *queue) {
     char comma = ',';
     while (!empty(1, aux)) {
         if (aux->next == NULL) comma = 0;
-        printf("\n\t\t\t{\n"
-               "\t\t\t\t\"id\":%d,\n"
-               "\t\t\t\t\"carga\":%d,\n"
-               "\t\t\t\t\"espera\":%d\n"
-               "\t\t\t}%c",
+        printf("\n      {\n"
+               "        \"id\": %d,\n"
+               "        \"carga\": %d,\n"
+               "        \"espera\": %d\n"
+               "      }%c",
                aux->ship->id,
                aux->ship->load,
                aux->ship->time_stay,

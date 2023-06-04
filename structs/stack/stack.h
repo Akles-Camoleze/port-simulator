@@ -14,7 +14,8 @@ typedef struct Stack {
     int size;
 } Stack;
 
-typedef enum STACK_SIZE {
+typedef enum {
+    EMPTY = 0,
     FOR_SHIP = 4,
     FOR_CROSS = 5
 } STACK_SIZE;

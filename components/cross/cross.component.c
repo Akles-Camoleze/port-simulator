@@ -10,14 +10,27 @@ void initialize_crosses(Crosses *crosses) {
     }
 }
 
-Cross *get_cross(Crosses *crosses) {
-    STACK_SIZE max = FOR_CROSS;
+Cross *cross_handler(Crosses *crosses, void (*operation)(Cross *, Cross *, int)) {
+    STACK_SIZE size = FOR_CROSS;
     Cross *cross = *crosses;
     Cross *last_cross = cross + CROSS_QUANTITY - 1;
-    while (cross != last_cross && cross->stack->size == max) {
+    if (operation == decrease) size = EMPTY;
+    operation(cross, last_cross, size);
+    return cross;
+}
+
+void increase(Cross *cross, Cross *last_cross, int size) {
+    while (cross != last_cross && cross->stack->size == size) {
         cross->time_left = 2;
         cross++;
     }
+}
 
-    return cross;
+void decrease(Cross *cross, Cross *last_cross, int size) {
+    while (cross != last_cross) {
+        if (cross->time_left > size) {
+            cross->time_left--;
+        }
+        cross++;
+    }
 }

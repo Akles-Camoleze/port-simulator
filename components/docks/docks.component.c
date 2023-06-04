@@ -22,15 +22,15 @@ void show_mooring_areas(Docks *docks) {
     char comma = ',';
     for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
         if (i == MOORING_AREA_QUANTITY - 1) comma = 0;
-        printf("\n\t\"%d\": {\n"
-               "\t\tquantidadeNavios:%d\n"
-               "\t\t\"navios\": [",
+        printf("\n  \"%d\": {\n"
+               "    \"quantidadeNavios\": %d,\n"
+               "    \"navios\": [",
                i + 1,
                docks->dock[i].size
         );
         print_queue(&(docks->dock[i]));
-        printf("\n\t\t]");
-        printf("\n\t}%c", comma);
+        printf("\n    ]");
+        printf("\n  }%c", comma);
     }
     printf("\n}");
 }
@@ -46,7 +46,7 @@ void hoist(Docks *docks, Crosses *crosses) {
             Node_Container *popped = pop(stacks);
             if (popped != NULL) {
                 STACK_SIZE max = FOR_CROSS;
-                Cross *cross = get_cross(crosses);
+                Cross *cross = cross_handler(crosses, increase);
                 push(cross->stack, popped->container, max);
                 ship->load--;
             }
