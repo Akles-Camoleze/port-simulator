@@ -30,3 +30,14 @@ void cross_handler(Crosses *crosses) {
         }
     }
 }
+
+
+void show_crosses(Crosses *crosses) {
+    for (int i = 0; i < CROSS_QUANTITY; ++i) {
+        printf("Travessa %d: Possui tamanho %d e tempo de espera %d\n",
+               i + 1,
+               (*crosses)[i].stack.size,
+               (*crosses)[i].time_left
+        );
+    }
+}

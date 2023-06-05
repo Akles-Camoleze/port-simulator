@@ -29,19 +29,9 @@ Node_Ship *unqueue(Queue *queue) {
 
 void print_queue(Queue *queue) {
     Node_Ship *aux = queue->front;
-    char comma = ',';
     while (!empty(1, aux)) {
-        if (aux->next == NULL) comma = 0;
-        printf("\n        {\n"
-               "          \"id\": %d,\n"
-               "          \"carga\": %d,\n"
-               "          \"espera\": %d\n"
-               "        }%c",
-               aux->ship->id,
-               aux->ship->load,
-               aux->ship->time_stay,
-               comma
-        );
+        Ship *ship = aux->ship;
+        printf("\nNavio %d: Possui carga %d e tempo de espera %d", ship->id, ship->load, ship->time_stay);
         aux = aux->next;
     }
 }

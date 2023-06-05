@@ -1,6 +1,7 @@
 #ifndef PORT_SIMULATOR_DOCKS_COMPONENT_H
 #define PORT_SIMULATOR_DOCKS_COMPONENT_H
 #define MOORING_AREA_QUANTITY 4
+#define DOCK_MAX_SIZE 20
 
 #include "../../structs/queue/queue.h"
 #include "../cross/cross.component.h"

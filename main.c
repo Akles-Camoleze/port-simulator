@@ -21,29 +21,14 @@ int main() {
     do {
         int ships = gen_number(1, 4);
         for (int i = 0; i < ships; ++i) {
-            Ship *ship = new_ship();
             Queue *smaller = get_smaller_queue(&docks);
-            to_queue(smaller, ship);
+            if (smaller->size < DOCK_MAX_SIZE) {
+                Ship *ship = new_ship();
+                to_queue(smaller, ship);
+            }
         }
-        printf("{\n");
-        printf("  \"travessas\": [");
-        char comma = ',';
-        for (int i = 0; i < CROSS_QUANTITY; ++i) {
-            if (i == CROSS_QUANTITY - 1) comma = 0;
-            printf("\n    {"
-                   "\n      \"quantidadeContainer\": %d,"
-                   "\n      \"tempoDeEspera\": %d"
-                   "\n    }%c",
-                   crosses[i].stack.size,
-                   crosses[i].time_left,
-                   comma
-            );
-        }
-        printf("\n  ],");
-        printf("\n  \"docas\": [");
         show_mooring_areas(&docks);
-        printf("\n  ]");
-        printf("\n}");
+        show_crosses(&crosses);
         manager_cross(&crosses, cross_handler);
         hoist(&docks, &crosses);
     } while (getchar() == '\n');

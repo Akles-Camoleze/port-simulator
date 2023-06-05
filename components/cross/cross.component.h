@@ -20,4 +20,6 @@ void select_cross(Crosses *crosses);
 
 void cross_handler(Crosses *crosses);
 
+void show_crosses(Crosses *crosses);
+
 #endif //PORT_SIMULATOR_CROSS_COMPONENT_H
