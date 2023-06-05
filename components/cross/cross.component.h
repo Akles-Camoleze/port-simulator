@@ -13,15 +13,19 @@ typedef struct Cross {
     int time_left;
 } Cross;
 
-typedef struct Cross *Crosses;
+typedef struct Crosses {
+    Cross *cross;
+    int total_time_left;
+    float media;
+} Crosses;
 
 void initialize_crosses(Crosses *crosses);
 
-Cross *manager_crosses(Crosses *crosses, void (*operation)(Crosses *));
+Cross *manager_crosses(Crosses *crosses, void (*operation)(Cross **));
 
-void select_cross(Crosses *crosses);
+void select_cross(Cross **crosses);
 
-void cross_handler(Crosses *crosses);
+void cross_handler(Cross **crosses);
 
 void show_crosses(Crosses *crosses);
 

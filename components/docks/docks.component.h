@@ -8,7 +8,7 @@
 
 typedef struct Cross Cross;
 
-typedef struct Cross *Crosses;
+typedef struct Crosses Crosses;
 
 typedef struct Dock {
     Queue queue;
