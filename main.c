@@ -44,7 +44,7 @@ int main() {
         show_mooring_areas(&docks);
         printf("\n  ]");
         printf("\n}");
-        cross_handler(&crosses, decrease);
+        manager_cross(&crosses, cross_handler);
         hoist(&docks, &crosses);
     } while (getchar() == '\n');
 

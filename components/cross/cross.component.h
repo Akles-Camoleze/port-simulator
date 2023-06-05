@@ -14,10 +14,10 @@ typedef struct Cross *Crosses;
 
 void initialize_crosses(Crosses *crosses);
 
-Cross *cross_handler(Crosses *crosses, void (*operation)(Crosses *, Cross *, int));
+Cross *manager_cross(Crosses *crosses, void (*operation)(Crosses *));
 
-void increase(Crosses *crosses, Cross *last_cross, int size);
+void select_cross(Crosses *crosses);
 
-void decrease(Crosses *crosses, Cross *last_cross, int size);
+void cross_handler(Crosses *crosses);
 
 #endif //PORT_SIMULATOR_CROSS_COMPONENT_H

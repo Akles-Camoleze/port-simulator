@@ -43,7 +43,7 @@ void hoist(Docks *docks, Crosses *crosses) {
             Node_Container *popped = pop(stacks);
             if (popped != NULL) {
                 STACK_SIZE max = FOR_CROSS;
-                Cross *cross = cross_handler(crosses, increase);
+                Cross *cross = manager_cross(crosses, select_cross);
                 push(&cross->stack, popped->container, max);
                 if (cross->stack.size == 5) cross->time_left = 2;
                 ship->load--;

@@ -9,30 +9,24 @@ void initialize_crosses(Crosses *crosses) {
     }
 }
 
-Cross *cross_handler(Crosses *crosses, void (*operation)(Crosses *, Cross *, int)) {
-    STACK_SIZE size = FOR_CROSS;
+Cross *manager_cross(Crosses *crosses, void (*operation)(Crosses *)) {
     Cross *cross = *crosses;
-    Cross *last_cross = cross + CROSS_QUANTITY - 1;
-    if (operation == decrease) size = EMPTY;
-    operation(&cross, last_cross, size);
+    operation(&cross);
     return cross;
 }
 
-void increase(Crosses *crosses, Cross *last_cross, int size) {
-    for (Crosses *cross = crosses; *cross <= last_cross; (*cross)++) {
-        if ((*cross)->stack.size != size && (*cross)->time_left == 0) {
-            break;
-        }
-        if (*cross == last_cross) break;
+void select_cross(Crosses *crosses) {
+    Cross *last_cross = *crosses + CROSS_QUANTITY - 1;
+    while (*crosses != last_cross && ((*crosses)->stack.size == FOR_CROSS || (*crosses)->time_left != 0)) {
+        (*crosses)++;
     }
 }
 
-void decrease(Crosses *crosses, Cross *last_cross, int size) {
-    for (Crosses *cross = crosses; *cross <= last_cross; (*cross)++) {
-        if ((*cross)->time_left > size) {
-            for (int j = 0; j < ((*cross)->time_left + 1); j++) pop(&(*cross)->stack);
-            (*cross)->time_left--;
+void cross_handler(Crosses *crosses) {
+    for (int i = 0; i < CROSS_QUANTITY; ++i) {
+        if ((*crosses)[i].time_left > EMPTY) {
+            for (int j = 0; j < ((*crosses)[i].time_left + 1); j++) pop(&(*crosses)[i].stack);
+            (*crosses)[i].time_left--;
         }
-        if (*cross == last_cross) break;
     }
 }
