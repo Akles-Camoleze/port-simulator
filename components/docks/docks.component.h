@@ -7,11 +7,13 @@
 #include "../cross/cross.component.h"
 
 typedef struct Cross Cross;
-
 typedef struct Crosses Crosses;
+typedef struct Queue Queue;
+typedef struct List List;
 
 typedef struct Dock {
-    Queue queue;
+    Queue *queue;
+    Cross *current_cross;
     int car_uses;
     int total_load;
     float average_time;
@@ -20,7 +22,7 @@ typedef struct Dock {
 typedef struct Dock Docks[MOORING_AREA_QUANTITY];
 
 
-void initialize_docks(Docks *docks);
+void initialize_docks(Docks *docks, List *list);
 
 Dock *get_smaller_dock(Docks *docks);
 

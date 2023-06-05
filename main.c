@@ -10,16 +10,16 @@ int main() {
     srand(time(NULL));
     Docks docks;
     Crosses crosses;
-    initialize_docks(&docks);
     initialize_crosses(&crosses);
+    initialize_docks(&docks, crosses.list);
 
     do {
-        int ships = gen_number(1, 4);
+        int ships = gen_number(0, 3);
         for (int i = 0; i < ships; ++i) {
             Dock *smaller = get_smaller_dock(&docks);
-            if (smaller->queue.size < DOCK_MAX_SIZE) {
+            if (smaller->queue->size < DOCK_MAX_SIZE) {
                 Ship *ship = new_ship();
-                to_queue(&smaller->queue, ship);
+                to_queue(smaller->queue, ship);
                 smaller->total_load += ship->load;
             }
         }

@@ -5,6 +5,10 @@
 #include <string.h>
 #include "../node/node.h"
 
+typedef struct Node_Ship Node_Ship;
+
+typedef struct Ship Ship;
+
 typedef struct Queue {
     Node_Ship *front;
     Node_Ship *rear;

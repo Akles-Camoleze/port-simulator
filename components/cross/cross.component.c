@@ -1,66 +1,87 @@
 #include "cross.component.h"
 
 void initialize_crosses(Crosses *crosses) {
-    crosses->cross = (Cross *) malloc(CROSS_QUANTITY * sizeof(Cross));
+    crosses->list = (List *) malloc(sizeof(List));
+    new_list(crosses->list);
     crosses->total_time_left = 0;
     crosses->average_time = (float) 0.0;
     for (int i = 0; i < CROSS_QUANTITY; i++) {
-        Cross *cross = &((*crosses).cross[i]);
-        new_stack(&cross->stack);
+        Cross *cross = (Cross *) malloc(sizeof(Cross));
+        cross->stack = (Stack *) malloc(sizeof(Stack));
+        new_stack(cross->stack);
         cross->time_left = 0;
+        cross->spare = i != (CROSS_QUANTITY - 1) ? false : true;
+        to_list(crosses->list, cross, CROSS_QUANTITY);
     }
 }
 
-Cross *manager_crosses(Crosses *crosses, int (*operation)(Cross **, int)) {
-    Cross *cross = crosses->cross;
-    crosses->total_time_left = operation(&cross, crosses->total_time_left);
-    return cross;
+Cross *manager_crosses(Crosses *crosses, int (*operation)(Node_Cross **, int)) {
+    Node_Cross *node = crosses->list->first;
+    crosses->total_time_left = operation(&node, crosses->total_time_left);
+    if (node != NULL) {
+        node->cross->spare = false;
+        return node->cross;
+    }
+    return NULL;
 }
 
-int select_cross(Cross **crosses, int basic_time) {
-    Cross *last_cross = *crosses + CROSS_QUANTITY - 1;
-    while (*crosses != last_cross && ((*crosses)->stack.size == FOR_CROSS || (*crosses)->time_left != 0)) {
-        (*crosses)++;
+int select_cross(Node_Cross **first, int basic_time) {
+    while ((*first) != NULL && !(*first)->cross->spare) {
+        (*first) = (*first)->next;
     }
-
     return basic_time;
 }
 
-int cross_handler(Cross **crosses, int basic_time) {
-    for (int i = 0; i < CROSS_QUANTITY; ++i) {
-        if ((*crosses)[i].time_left > EMPTY) {
-            for (int j = 0; j < ((*crosses)[i].time_left + 1); j++) pop(&(*crosses)[i].stack);
-            (*crosses)[i].time_left--;
+int cross_handler(Node_Cross **first, int basic_time) {
+    while ((*first)->next != NULL) {
+        if ((*first)->cross->time_left != EMPTY) {
+            for (int i = 0; i < (*first)->cross->time_left + 1; ++i) {
+                pop((*first)->cross->stack);
+            }
+            if (--(*first)->cross->time_left == EMPTY) {
+                (*first)->cross->spare = true;
+            }
             basic_time--;
         }
+        (*first) = (*first)->next;
     }
-
     return basic_time;
 }
 
 
 void show_crosses(Crosses *crosses) {
+    int i = 1;
+    Node_Cross *node = crosses->list->first;
     printf("\n------------------------------------------------\n"
            "Travessas: Possui tempo total de espera %d e average_time de espera %.1f",
            crosses->total_time_left,
            crosses->average_time
     );
-    for (int i = 0; i < CROSS_QUANTITY; ++i) {
+    while (node != NULL) {
         printf("\nTravessa %d: Possui tamanho %d e tempo de espera %d",
-               i + 1,
-               crosses->cross[i].stack.size,
-               crosses->cross[i].time_left
+               i,
+               node->cross->stack->size,
+               node->cross->time_left
         );
+        i++;
+        node = node->next;
     }
     printf("\n------------------------------------------------\n");
 }
 
-void to_cross(Dock *dock, Crosses *crosses, Node_Container *node) {
+Cross *to_cross(Dock *dock, Crosses *crosses, Node_Container *node) {
     STACK_SIZE max = FOR_CROSS;
-    Cross *cross = manager_crosses(crosses, select_cross);
-    push(&cross->stack, node->container, max);
-    if (cross->stack.size == max) {
-        to_transport(dock, &cross);
-        crosses->total_time_left += DRAIN_OUT_TIME;
+    Cross *cross = dock->current_cross;
+    if (cross->stack->size == max || cross->time_left != 0) {
+        dock->current_cross = manager_crosses(crosses, select_cross);
+        cross = dock->current_cross;
     }
+    if (!empty(1, cross)) {
+        push(cross->stack, node->container, max);
+        if (cross->stack->size == max) {
+            to_transport(dock, &cross);
+            crosses->total_time_left += DRAIN_OUT_TIME;
+        }
+    }
+    return cross;
 }
