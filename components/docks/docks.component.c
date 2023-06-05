@@ -34,26 +34,25 @@ void show_mooring_areas(Docks *docks) {
 
 void hoist(Docks *docks, Crosses *crosses) {
     for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
-        Node_Ship *node = docks[i]->queue.front;
+        Node_Ship *node = get_first(&docks[i]->queue);
         if (!empty(1, node)) {
             Ship *ship = node->ship;
-            Stack *stacks = ship->stacks;
-            Stack *last_stack = stacks + STACKS_SHIP_QUANTITY - 1;
-            while (stacks != last_stack && stacks->size == 0) stacks++;
-            Node_Container *popped = pop(stacks);
-            if (popped != NULL) {
-                STACK_SIZE max = FOR_CROSS;
-                Cross *cross = manager_crosses(crosses, select_cross);
-                push(&cross->stack, popped->container, max);
-                if (cross->stack.size == max) {
-                    docks[i]->car_uses++;
-                    cross->time_left = 2;
-                }
-                ship->load--;
+            Stack *stack = select_ship_stack(ship);
+            Node_Container *popped = pop(stack);
+            if (!empty(1, popped)) {
+                to_cross(docks[i], crosses, popped);
+                decrease_load(ship);
             }
-            if (ship->load == 0) {
+            if (check_load(ship, 0)) {
                 unqueue(&(docks[i]->queue));
             }
         }
+    }
+}
+
+void to_transport(Dock *dock, Cross **cross, bool transport) {
+    if (transport) {
+        dock->car_uses++;
+        (*cross)->time_left = 2;
     }
 }

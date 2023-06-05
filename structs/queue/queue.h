@@ -19,4 +19,6 @@ Node_Ship *unqueue(Queue *queue);
 
 void print_queue(Queue *queue);
 
+Node_Ship *get_first(Queue *queue);
+
 #endif //PORT_SIMULATOR_QUEUE_H

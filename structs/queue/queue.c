@@ -35,3 +35,7 @@ void print_queue(Queue *queue) {
         aux = aux->next;
     }
 }
+
+Node_Ship *get_first(Queue *queue) {
+    return queue->front;
+}

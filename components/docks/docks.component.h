@@ -6,6 +6,10 @@
 #include "../../structs/queue/queue.h"
 #include "../cross/cross.component.h"
 
+typedef struct Cross Cross;
+
+typedef struct Cross *Crosses;
+
 typedef struct Dock {
     Queue queue;
     int car_uses;
@@ -21,5 +25,7 @@ Queue *get_smaller_queue(Docks *docks);
 void show_mooring_areas(Docks *docks);
 
 void hoist(Docks *docks, Crosses *crosses);
+
+void to_transport(Dock *dock, Cross **cross, bool transport);
 
 #endif //PORT_SIMULATOR_DOCKS_COMPONENT_H

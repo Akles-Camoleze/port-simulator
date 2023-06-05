@@ -41,3 +41,10 @@ void show_crosses(Crosses *crosses) {
         );
     }
 }
+
+void to_cross(Dock *dock, Crosses *crosses, Node_Container *node) {
+    STACK_SIZE max = FOR_CROSS;
+    Cross *cross = manager_crosses(crosses, select_cross);
+    push(&cross->stack, node->container, max);
+    to_transport(dock, &cross, cross->stack.size == max);
+}

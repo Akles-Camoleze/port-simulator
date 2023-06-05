@@ -17,12 +17,10 @@ Ship *new_ship();
 
 void get_containers(Ship *ship);
 
-/*
+Stack *select_ship_stack(Ship *ship);
 
-_______||10||___
-\----------300-|
- \____________/
-~~~~~~~~~~~~~~~~~~
-*/
+void decrease_load(Ship *ship);
+
+bool check_load(Ship *ship, int load);
 
 #endif //PORT_SIMULATOR_SHIP_COMPONENT_H
