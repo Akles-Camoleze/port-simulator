@@ -9,7 +9,7 @@ void initialize_crosses(Crosses *crosses) {
     }
 }
 
-Cross *manager_cross(Crosses *crosses, void (*operation)(Crosses *)) {
+Cross *manager_crosses(Crosses *crosses, void (*operation)(Crosses *)) {
     Cross *cross = *crosses;
     operation(&cross);
     return cross;

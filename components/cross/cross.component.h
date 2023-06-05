@@ -14,7 +14,7 @@ typedef struct Cross *Crosses;
 
 void initialize_crosses(Crosses *crosses);
 
-Cross *manager_cross(Crosses *crosses, void (*operation)(Crosses *));
+Cross *manager_crosses(Crosses *crosses, void (*operation)(Crosses *));
 
 void select_cross(Crosses *crosses);
 

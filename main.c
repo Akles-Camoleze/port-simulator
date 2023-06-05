@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
-#include "structs/stack/stack.h"
-#include "structs/queue/queue.h"
-#include "utils/utils.h"
 #include "components/docks/docks.component.h"
 #include "components/cross/cross.component.h"
 
@@ -29,7 +24,7 @@ int main() {
         }
         show_mooring_areas(&docks);
         show_crosses(&crosses);
-        manager_cross(&crosses, cross_handler);
+        manager_crosses(&crosses, cross_handler);
         hoist(&docks, &crosses);
     } while (getchar() == '\n');
 

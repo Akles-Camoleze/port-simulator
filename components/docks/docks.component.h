@@ -6,9 +6,13 @@
 #include "../../structs/queue/queue.h"
 #include "../cross/cross.component.h"
 
-typedef struct Docks {
-    Queue dock[MOORING_AREA_QUANTITY];
-} Docks;
+typedef struct Dock {
+    Queue queue;
+    int car_uses;
+} Dock;
+
+typedef struct Dock Docks[MOORING_AREA_QUANTITY];
+
 
 void initialize_docks(Docks *docks);
 
