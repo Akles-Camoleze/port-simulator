@@ -1,6 +1,7 @@
 #ifndef PORT_SIMULATOR_CROSS_COMPONENT_H
 #define PORT_SIMULATOR_CROSS_COMPONENT_H
 #define CROSS_QUANTITY 5
+#define DRAIN_OUT_TIME 2
 
 #include <stdbool.h>
 #include "../../structs/stack/stack.h"
@@ -16,16 +17,16 @@ typedef struct Cross {
 typedef struct Crosses {
     Cross *cross;
     int total_time_left;
-    float media;
+    float average_time;
 } Crosses;
 
 void initialize_crosses(Crosses *crosses);
 
-Cross *manager_crosses(Crosses *crosses, void (*operation)(Cross **));
+Cross *manager_crosses(Crosses *crosses, int (*operation)(Cross **, int));
 
-void select_cross(Cross **crosses);
+int select_cross(Cross **crosses, int);
 
-void cross_handler(Cross **crosses);
+int cross_handler(Cross **crosses, int);
 
 void show_crosses(Crosses *crosses);
 

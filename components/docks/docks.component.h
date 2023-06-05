@@ -13,6 +13,8 @@ typedef struct Crosses Crosses;
 typedef struct Dock {
     Queue queue;
     int car_uses;
+    int total_load;
+    float average_time;
 } Dock;
 
 typedef struct Dock Docks[MOORING_AREA_QUANTITY];
@@ -20,12 +22,12 @@ typedef struct Dock Docks[MOORING_AREA_QUANTITY];
 
 void initialize_docks(Docks *docks);
 
-Queue *get_smaller_queue(Docks *docks);
+Dock *get_smaller_dock(Docks *docks);
 
 void show_mooring_areas(Docks *docks);
 
 void hoist(Docks *docks, Crosses *crosses);
 
-void to_transport(Dock *dock, Cross **cross, bool transport);
+void to_transport(Dock *dock, Cross **cross);
 
 #endif //PORT_SIMULATOR_DOCKS_COMPONENT_H

@@ -16,10 +16,11 @@ int main() {
     do {
         int ships = gen_number(1, 4);
         for (int i = 0; i < ships; ++i) {
-            Queue *smaller = get_smaller_queue(&docks);
-            if (smaller->size < DOCK_MAX_SIZE) {
+            Dock *smaller = get_smaller_dock(&docks);
+            if (smaller->queue.size < DOCK_MAX_SIZE) {
                 Ship *ship = new_ship();
-                to_queue(smaller, ship);
+                to_queue(&smaller->queue, ship);
+                smaller->total_load += ship->load;
             }
         }
         show_mooring_areas(&docks);

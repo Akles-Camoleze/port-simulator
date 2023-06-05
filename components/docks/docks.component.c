@@ -2,39 +2,42 @@
 
 void initialize_docks(Docks *docks) {
     for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
-        new_queue(&(docks[i]->queue));
-        docks[i]->car_uses = 0;
+        new_queue(&((*docks)[i].queue));
+        (*docks)[i].car_uses = 0;
+        (*docks)[i].total_load = 0;
+        (*docks)[i].average_time = (float) 0.0;
     }
 }
 
-Queue *get_smaller_queue(Docks *docks) {
-    Queue *smaller = &(*docks)->queue;
+Dock *get_smaller_dock(Docks *docks) {
+    Dock *smaller = *docks;
     for (int i = 1; i < MOORING_AREA_QUANTITY; ++i) {
-        if (docks[i]->queue.size < smaller->size) {
-            smaller = &(docks[i]->queue);
+        if ((*docks)[i].queue.size < smaller->queue.size) {
+            smaller = &(*docks)[i];
         }
     }
-
     return smaller;
 }
 
 void show_mooring_areas(Docks *docks) {
     for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
         printf("\n------------------------------------------------");
-        printf("\nDoca %d: Possui %d navio(s)"
+        printf("\nDoca %d: Possui %d navio(s), tempo medio %.1f e total de container %d"
                "\nCarrinho usado %d vez(es)",
                i + 1,
-               docks[i]->queue.size,
-               docks[i]->car_uses
+               (*docks)[i].queue.size,
+               (*docks)[i].average_time,
+               (*docks)[i].total_load,
+               (*docks)[i].car_uses
         );
-        print_queue(&(docks[i]->queue));
+        print_queue(&(*docks)[i].queue);
         printf("\n------------------------------------------------\n");
     }
 }
 
 void hoist(Docks *docks, Crosses *crosses) {
     for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
-        Node_Ship *node = get_first(&docks[i]->queue);
+        Node_Ship *node = get_first(&(*docks)[i].queue);
         if (!empty(1, node)) {
             Ship *ship = node->ship;
             Stack *stack = select_ship_stack(ship);
@@ -42,17 +45,16 @@ void hoist(Docks *docks, Crosses *crosses) {
             if (!empty(1, popped)) {
                 to_cross(docks[i], crosses, popped);
                 decrease_load(ship);
+                (*docks)[i].total_load--;
             }
             if (check_load(ship, 0)) {
-                unqueue(&(docks[i]->queue));
+                unqueue(&((*docks)[i].queue));
             }
         }
     }
 }
 
-void to_transport(Dock *dock, Cross **cross, bool transport) {
-    if (transport) {
-        dock->car_uses++;
-        (*cross)->time_left = 2;
-    }
+void to_transport(Dock *dock, Cross **cross) {
+    dock->car_uses++;
+    (*cross)->time_left = DRAIN_OUT_TIME;
 }
