@@ -42,15 +42,19 @@ void show_mooring_areas(Docks *docks) {
 void hoist(Docks *docks, Crosses *crosses) {
     for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
         Node_Ship *node = get_first((*docks)[i].queue);
-        if (node != NULL && (*docks)[i].current_cross != NULL) {
+        Cross *cross = to_cross(&(*docks)[i], crosses);
+        if (!empty(1, node) && !empty(1, cross)) {
             Ship *ship = node->ship;
             Stack *stack = select_ship_stack(ship);
             Node_Container *popped = pop(stack);
             if (!empty(1, popped)) {
-                if (!empty(1, to_cross(&(*docks)[i], crosses, popped))) {
-                    decrease_load(ship);
-                    (*docks)[i].total_load--;
+                push(cross->stack, popped->container, FOR_CROSS);
+                if (cross->stack->size == FOR_CROSS) {
+                    to_transport(&(*docks)[i], &cross);
+                    crosses->total_time_left += DRAIN_OUT_TIME;
                 }
+                decrease_load(ship);
+                (*docks)[i].total_load--;
             }
             if (check_load(ship, 0)) {
                 unqueue((*docks)[i].queue);
@@ -62,4 +66,5 @@ void hoist(Docks *docks, Crosses *crosses) {
 void to_transport(Dock *dock, Cross **cross) {
     dock->car_uses++;
     (*cross)->time_left = DRAIN_OUT_TIME;
+    (*cross)->spare = false;
 }

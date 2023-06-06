@@ -36,6 +36,6 @@ int cross_handler(Node_Cross **first, int);
 
 void show_crosses(Crosses *crosses);
 
-Cross *to_cross(Dock *dock, Crosses *crosses, Node_Container *node);
+Cross *to_cross(Dock *dock, Crosses *crosses);
 
 #endif //PORT_SIMULATOR_CROSS_COMPONENT_H

@@ -19,7 +19,6 @@ Cross *manager_crosses(Crosses *crosses, int (*operation)(Node_Cross **, int)) {
     Node_Cross *node = crosses->list->first;
     crosses->total_time_left = operation(&node, crosses->total_time_left);
     if (node != NULL) {
-        node->cross->spare = false;
         return node->cross;
     }
     return NULL;
@@ -29,11 +28,14 @@ int select_cross(Node_Cross **first, int basic_time) {
     while ((*first) != NULL && !(*first)->cross->spare) {
         (*first) = (*first)->next;
     }
+    if ((*first) != NULL && (*first)->cross->spare == true) {
+        (*first)->cross->spare = false;
+    }
     return basic_time;
 }
 
 int cross_handler(Node_Cross **first, int basic_time) {
-    while ((*first)->next != NULL) {
+    while ((*first) != NULL) {
         if ((*first)->cross->time_left != EMPTY) {
             for (int i = 0; i < (*first)->cross->time_left + 1; ++i) {
                 pop((*first)->cross->stack);
@@ -69,19 +71,9 @@ void show_crosses(Crosses *crosses) {
     printf("\n------------------------------------------------\n");
 }
 
-Cross *to_cross(Dock *dock, Crosses *crosses, Node_Container *node) {
-    STACK_SIZE max = FOR_CROSS;
-    Cross *cross = dock->current_cross;
-    if (cross->stack->size == max || cross->time_left != 0) {
+Cross *to_cross(Dock *dock, Crosses *crosses) {
+    if ((!empty(1, dock->current_cross) && dock->current_cross->time_left != 0) || empty(1, dock->current_cross)) {
         dock->current_cross = manager_crosses(crosses, select_cross);
-        cross = dock->current_cross;
     }
-    if (!empty(1, cross)) {
-        push(cross->stack, node->container, max);
-        if (cross->stack->size == max) {
-            to_transport(dock, &cross);
-            crosses->total_time_left += DRAIN_OUT_TIME;
-        }
-    }
-    return cross;
+    return dock->current_cross;
 }
