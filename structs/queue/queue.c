@@ -31,7 +31,7 @@ void print_queue(Queue *queue) {
     Node_Ship *aux = queue->front;
     while (!empty(1, aux)) {
         Ship *ship = aux->ship;
-        printf("\nNavio %d: Possui carga %d e tempo de espera %d", ship->id, ship->load, ship->time_stay);
+        printf("\nNavio %d: Carga: %d | Espera: %d", ship->id, ship->load, ship->time_stay);
         aux = aux->next;
     }
 }

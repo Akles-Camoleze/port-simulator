@@ -7,6 +7,7 @@ void initialize_crosses(Crosses *crosses) {
     crosses->average_time = (float) 0.0;
     for (int i = 0; i < CROSS_QUANTITY; i++) {
         Cross *cross = (Cross *) malloc(sizeof(Cross));
+        cross->id = i + 1;
         cross->stack = (Stack *) malloc(sizeof(Stack));
         new_stack(cross->stack);
         cross->time_left = 0;
@@ -52,26 +53,26 @@ int cross_handler(Node_Cross **first, int basic_time) {
 
 
 void show_crosses(Crosses *crosses) {
-    int i = 1;
     Node_Cross *node = crosses->list->first;
-    printf("\n------------------------------------------------\n"
-           "Travessas: Possui tempo total de espera %d e average_time de espera %.1f",
+    printf("\n=================================================================="
+           "\nTravessas: Espera: %d | Media: %.1f"
+           "\n------------------------------------------------------------------",
            crosses->total_time_left,
            crosses->average_time
     );
     while (node != NULL) {
-        printf("\nTravessa %d: Possui tamanho %d e tempo de espera %d",
-               i,
+        printf("\n%d: Carga: %d | Espera: %d | Disponivel: %s",
+               node->cross->id,
                node->cross->stack->size,
-               node->cross->time_left
+               node->cross->time_left,
+               node->cross->spare ? "Sim" : "Nao"
         );
-        i++;
         node = node->next;
     }
-    printf("\n------------------------------------------------\n");
+    printf("\n==================================================================\n");
 }
 
-Cross *to_cross(Dock *dock, Crosses *crosses) {
+Cross *get_dock_cross(Dock *dock, Crosses *crosses) {
     if ((!empty(1, dock->current_cross) && dock->current_cross->time_left != 0) || empty(1, dock->current_cross)) {
         dock->current_cross = manager_crosses(crosses, select_cross);
     }

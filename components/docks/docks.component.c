@@ -25,24 +25,27 @@ Dock *get_smaller_dock(Docks *docks) {
 
 void show_mooring_areas(Docks *docks) {
     for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
-        printf("\n------------------------------------------------");
-        printf("\nDoca %d: Possui %d navio(s), tempo medio %.1f e total de container %d"
-               "\nCarrinho usado %d vez(es)",
+        Dock dock = (*docks)[i];
+        int cross_id = !empty(1, dock.current_cross) ? dock.current_cross->id : 0;
+        printf("\n=================================================================="
+               "\nDoca %d: TN: %02d | Espera: %.1f | TC: %03d | Carrinho: %03d | T: %d"
+               "\n------------------------------------------------------------------",
                i + 1,
-               (*docks)[i].queue->size,
-               (*docks)[i].average_time,
-               (*docks)[i].total_load,
-               (*docks)[i].car_uses
+               dock.queue->size,
+               dock.average_time,
+               dock.total_load,
+               dock.car_uses,
+               cross_id
         );
-        print_queue((*docks)[i].queue);
-        printf("\n------------------------------------------------\n");
+        print_queue(dock.queue);
+        printf("\n==================================================================\n");
     }
 }
 
 void hoist(Docks *docks, Crosses *crosses) {
     for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
         Node_Ship *node = get_first((*docks)[i].queue);
-        Cross *cross = to_cross(&(*docks)[i], crosses);
+        Cross *cross = get_dock_cross(&(*docks)[i], crosses);
         if (!empty(1, node) && !empty(1, cross)) {
             Ship *ship = node->ship;
             Stack *stack = select_ship_stack(ship);
