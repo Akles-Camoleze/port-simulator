@@ -1,6 +1,6 @@
 #ifndef PORT_SIMULATOR_DOCKS_COMPONENT_H
 #define PORT_SIMULATOR_DOCKS_COMPONENT_H
-#define MOORING_AREA_QUANTITY 4
+#define DOCKS_QUANTITY 4
 #define DOCK_MAX_SIZE 20
 
 #include "../../structs/queue/queue.h"
@@ -19,7 +19,7 @@ typedef struct Dock {
     float average_time;
 } Dock;
 
-typedef struct Dock Docks[MOORING_AREA_QUANTITY];
+typedef struct Dock Docks[DOCKS_QUANTITY];
 
 
 void initialize_docks(Docks *docks, List *list);
@@ -31,5 +31,7 @@ void show_mooring_areas(Docks *docks);
 void hoist(Docks *docks, Crosses *crosses);
 
 void to_transport(Dock *dock, Cross **cross);
+
+void get_docks_averages(Docks *docks, float crosses_average);
 
 #endif //PORT_SIMULATOR_DOCKS_COMPONENT_H

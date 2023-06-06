@@ -2,7 +2,7 @@
 
 void initialize_docks(Docks *docks, List *list) {
     Node_Cross *node = list->first;
-    for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
+    for (int i = 0; i < DOCKS_QUANTITY; ++i) {
         (*docks)[i].queue = (Queue *) malloc(sizeof(Queue));
         new_queue((*docks)[i].queue);
         (*docks)[i].car_uses = 0;
@@ -15,7 +15,7 @@ void initialize_docks(Docks *docks, List *list) {
 
 Dock *get_smaller_dock(Docks *docks) {
     Dock *smaller = *docks;
-    for (int i = 1; i < MOORING_AREA_QUANTITY; ++i) {
+    for (int i = 1; i < DOCKS_QUANTITY; ++i) {
         if ((*docks)[i].queue->size < smaller->queue->size) {
             smaller = &(*docks)[i];
         }
@@ -24,7 +24,7 @@ Dock *get_smaller_dock(Docks *docks) {
 }
 
 void show_mooring_areas(Docks *docks) {
-    for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
+    for (int i = 0; i < DOCKS_QUANTITY; ++i) {
         Dock dock = (*docks)[i];
         int cross_id = !empty(1, dock.current_cross) ? dock.current_cross->id : 0;
         printf("\n=================================================================="
@@ -43,7 +43,7 @@ void show_mooring_areas(Docks *docks) {
 }
 
 void hoist(Docks *docks, Crosses *crosses) {
-    for (int i = 0; i < MOORING_AREA_QUANTITY; ++i) {
+    for (int i = 0; i < DOCKS_QUANTITY; ++i) {
         Node_Ship *node = get_first((*docks)[i].queue);
         Cross *cross = get_dock_cross(&(*docks)[i], crosses);
         if (!empty(1, node) && !empty(1, cross)) {
@@ -70,4 +70,12 @@ void to_transport(Dock *dock, Cross **cross) {
     dock->car_uses++;
     (*cross)->time_left = DRAIN_OUT_TIME;
     (*cross)->spare = false;
+}
+
+void get_docks_averages(Docks *docks, float crosses_average) {
+    for (int i = 0; i < DOCKS_QUANTITY; ++i) {
+        float numerator = (float) (*docks)[i].total_load;
+        float denominator = (float) (*docks)[i].queue->size;
+        (*docks)[i].average_time = average_calculator(numerator, denominator) + crosses_average;
+    }
 }

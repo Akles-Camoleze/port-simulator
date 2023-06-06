@@ -78,3 +78,9 @@ Cross *get_dock_cross(Dock *dock, Crosses *crosses) {
     }
     return dock->current_cross;
 }
+
+void get_crosses_average(Crosses *crosses) {
+    float numerator = (float) (*crosses).total_time_left;
+    float denominator = (float) (*crosses).list->size;
+    crosses->average_time = average_calculator(numerator, denominator);
+}

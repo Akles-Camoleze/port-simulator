@@ -5,7 +5,6 @@ Ship *new_ship() {
     Ship *ship = (Ship *) malloc(sizeof(Ship));
     ship->id = ship_id;
     ship->load = gen_number(4, 16);
-    ship->time_stay = gen_number(1, 50);
     ship->stacks = (Stack *) malloc(STACKS_SHIP_QUANTITY * sizeof(Stack));
     get_containers(ship);
     ship_id++;
@@ -33,4 +32,9 @@ void decrease_load(Ship *ship) {
 
 bool check_load(Ship *ship, int load) {
     return ship->load == load;
+}
+
+void set_time_stay(Ship *ship, Dock *dock, float crosses_average) {
+    float denominator = (float) dock->queue->size;
+    ship->time_stay = (float) dock->total_load + average_calculator(crosses_average, denominator);
 }

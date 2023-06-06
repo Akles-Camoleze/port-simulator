@@ -19,10 +19,13 @@ int main() {
             Dock *smaller = get_smaller_dock(&docks);
             if (smaller->queue->size < DOCK_MAX_SIZE) {
                 Ship *ship = new_ship();
+                set_time_stay(ship, smaller, crosses.average_time);
                 to_queue(smaller->queue, ship);
                 smaller->total_load += ship->load;
             }
         }
+        get_crosses_average(&crosses);
+        get_docks_averages(&docks, crosses.average_time);
         show_mooring_areas(&docks);
         show_crosses(&crosses);
         manager_crosses(&crosses, cross_handler);

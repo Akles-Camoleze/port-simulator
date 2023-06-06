@@ -39,4 +39,6 @@ void show_crosses(Crosses *crosses);
 
 Cross *get_dock_cross(Dock *dock, Crosses *crosses);
 
+void get_crosses_average(Crosses *crosses);
+
 #endif //PORT_SIMULATOR_CROSS_COMPONENT_H

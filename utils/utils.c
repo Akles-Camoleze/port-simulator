@@ -30,3 +30,8 @@ void sleep_milliseconds(unsigned long milliseconds) {
     usleep(milliseconds * 1000);
 #endif
 }
+
+float average_calculator(float numerator, float denominator) {
+    if (denominator == 0.0) return denominator;
+    return numerator / denominator;
+}

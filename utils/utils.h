@@ -18,4 +18,6 @@ void sleep_milliseconds(unsigned long milliseconds);
 
 bool empty(int n, ...);
 
+float average_calculator(float numerator, float denominator);
+
 #endif //PORT_SIMULATOR_UTILS_H
