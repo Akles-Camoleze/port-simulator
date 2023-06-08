@@ -19,6 +19,4 @@ DECLARE_NODE_TYPE(Container, container)
 DECLARE_NODE_TYPE(Ship, ship)
 DECLARE_NODE_TYPE(Cross, cross)
 
-typedef void (*print_node_data)(void *);
-
 #endif //PORT_SIMULATOR_NODE_H
