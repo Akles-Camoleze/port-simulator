@@ -23,15 +23,12 @@ bool empty(int n, ...) {
     return true;
 }
 
-void sleep_milliseconds(unsigned long milliseconds) {
-#ifdef _WIN32
-    Sleep(milliseconds);
-#else
-    usleep(milliseconds * 1000);
-#endif
-}
-
 float average_calculator(float numerator, float denominator) {
     if (denominator == 0.0) return denominator;
     return numerator / denominator;
+}
+
+void get_time_uni(int *time_uni) {
+    printf("\n--------------------------------Uni %03d--------------------------------", *time_uni);
+    (*time_uni)++;
 }

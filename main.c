@@ -10,10 +10,12 @@ int main() {
     srand(time(NULL));
     Docks docks;
     Crosses crosses;
+    int time_uni = 1;
     initialize_crosses(&crosses);
     initialize_docks(&docks, crosses.list);
 
     do {
+        get_time_uni(&time_uni);
         int ships = gen_number(0, 3);
         for (int i = 0; i < ships; ++i) {
             Dock *smaller = get_smaller_dock(&docks);

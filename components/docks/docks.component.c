@@ -1,5 +1,4 @@
 #include "docks.component.h"
-int time_uni = 1;
 
 void initialize_docks(Docks *docks, List *list) {
     Node_Cross *node = list->first;
@@ -25,8 +24,6 @@ Dock *get_smaller_dock(Docks *docks) {
 }
 
 void show_mooring_areas(Docks *docks) {
-    printf("\n--------------------------------Uni %03d--------------------------------", time_uni);
-    time_uni++;
     for (int i = 0; i < DOCKS_QUANTITY; ++i) {
         Dock dock = (*docks)[i];
         int cross_id = !empty(1, dock.current_cross) ? dock.current_cross->id : 0;
