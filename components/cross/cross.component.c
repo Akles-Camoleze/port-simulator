@@ -55,13 +55,13 @@ int cross_handler(Node_Cross **first, int basic_time) {
 void show_crosses(Crosses *crosses) {
     Node_Cross *node = crosses->list->first;
     printf("\n=================================================================="
-           "\nTravessas: Espera: %d | Media: %.1f"
+           "\nTravessas | Espera Total: %d | Media: %.1f"
            "\n------------------------------------------------------------------",
            crosses->total_time_left,
            crosses->average_time
     );
     while (node != NULL) {
-        printf("\n%d: Carga: %d | Espera: %d | Disponivel: %s",
+        printf("\n%d | Carga: %d | Espera: %d | Disponivel: %s",
                node->cross->id,
                node->cross->stack->size,
                node->cross->time_left,
