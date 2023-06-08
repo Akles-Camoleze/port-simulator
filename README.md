@@ -143,13 +143,13 @@ Neste tópico, será exibido diagramas relacionais das estruturas criadas, segui
 
 ![Container](documentation/assets/container-tad.png)
 
-- Criar novo container.
+- Criar container.
 
 ### Navio
 
 ![Navio](documentation/assets/ship-tad.png)
 
-- Criar novo navio
+- Criar navio
 - Receber containers nas pilhas
 - Descarregar
 - Selecionar pilha de container

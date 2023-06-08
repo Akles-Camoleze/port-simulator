@@ -20,12 +20,25 @@ typedef enum {
     FOR_CROSS = 5
 } STACK_SIZE;
 
+/**
+ * Cria nova pilha, alocando na memória
+ * @param stack ponteiro da pilha a ser alocada
+ */
 void new_stack(Stack *stack);
 
+/**
+ * Empilha container
+ * @param stack: pilha a ser empilhada
+ * @param container: dado a ser empilhado
+ * @param max: tamanho maximo da pilha
+ */
 void push(Stack *stack, Container *container, int max);
 
+/**
+ * Desempilha container
+ * @param stack: pilha a ser desempilhada
+ * @return nó do respectivo container desempilhado
+ */
 Node_Container *pop(Stack *stack);
-
-void print_stack(Stack *stack);
 
 #endif //PORT_SIMULATOR_STACK_H
