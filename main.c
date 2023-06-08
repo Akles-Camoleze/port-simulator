@@ -32,6 +32,7 @@ int main() {
         show_crosses(&crosses);
         manager_crosses(&crosses, cross_handler);
         hoist(&docks, &crosses);
+        printf("'Enter' para continuar ");
     } while (getchar() == '\n');
 
     return 0;
