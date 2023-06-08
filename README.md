@@ -69,7 +69,11 @@ Para executá-lo, verifique se está dentro do diretório e rode o comando:
 make
 ```
 
-Após roda-lo, o projeto será compilado e executado.
+Após roda-lo, o projeto será compilado. Para executar rode o comando:
+
+```bash
+./port-simulator
+```
 
 ## Arquitetura do Projeto
 
