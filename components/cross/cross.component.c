@@ -54,22 +54,28 @@ int cross_handler(Node_Cross **first, int basic_time) {
 
 void show_crosses(Crosses *crosses) {
     Node_Cross *node = crosses->list->first;
-    printf("\n=================================================================="
-           "\nTravessas | Espera Total: %d | Media: %.1f"
-           "\n------------------------------------------------------------------",
+    printf(""
+           "\n╔══════════════════╦══════════Travessas═════════╦═════════════════════╗"
+           "\n║     Total %02d     ║      Espera Total: %02d      ║     Media: %04.1f     ║"
+           "\n╠══════════════════╩═╦═══════════════╦══════════╩═════╦═══════════════╣"
+           "\n║      Travessa      ║     Carga     ║     Espera     ║     Status    ║",
+           crosses->list->size,
            crosses->total_time_left,
            crosses->average_time
     );
     while (node != NULL) {
-        printf("\n%d | Carga: %d | Espera: %d | Disponivel: %s",
+        char *status = node->cross->spare ? "○" : node->cross->time_left == 0 ? "●" : "◐";
+        printf(""
+               "\n╠════════════════════╬═══════════════╬════════════════╬═══════════════╣"
+               "\n║         %02d         ║       %02d      ║       %02d       ║       %s       ║",
                node->cross->id,
                node->cross->stack->size,
                node->cross->time_left,
-               node->cross->spare ? "Sim" : "Nao"
+               status
         );
         node = node->next;
     }
-    printf("\n==================================================================\n");
+    printf("\n╚════════════════════╩═══════════════╩════════════════╩═══════════════╝\n");
 }
 
 Cross *get_dock_cross(Dock *dock, Crosses *crosses) {

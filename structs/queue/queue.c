@@ -31,7 +31,7 @@ void print_queue(Queue *queue) {
     Node_Ship *aux = queue->front;
     while (!empty(1, aux)) {
         Ship *ship = aux->ship;
-        printf("\n║═══════════════════════║═════════════════════║═══════════════════════║"
+        printf("\n╠═══════════════════════╬═════════════════════╬═══════════════════════╣"
                "\n║          %03d          ║         %03d         ║        %06.2f         ║",
                ship->id, ship->load,
                ship->time_stay

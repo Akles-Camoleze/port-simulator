@@ -27,9 +27,9 @@ void show_mooring_areas(Docks *docks) {
     for (int i = 0; i < DOCKS_QUANTITY; ++i) {
         Dock dock = (*docks)[i];
         int cross_id = !empty(1, dock.current_cross) ? dock.current_cross->id : 0;
-        printf("\n╔══════════╔═════════════════╔═══Doca %d═══╗════════════════╗══════════╗"
+        printf("\n╔══════════╦═════════════════╦═══Doca %d═══╦════════════════╦══════════╗"
                "\n║  TN: %02d  ║  Espera: %05.1f  ║  TC: %04d  ║  Carrinho: %02d  ║  TV: %02d  ║"
-               "\n║══════════╚════════════╔════╚════════════╝═══╗════════════╝══════════║"
+               "\n╠══════════╩════════════╦════╩════════════╩═══╦════════════╩══════════╣"
                "\n║         Navio         ║        Carga        ║        TEspera        ║",
                i + 1,
                dock.queue->size,
@@ -39,7 +39,7 @@ void show_mooring_areas(Docks *docks) {
                cross_id
         );
         print_queue(dock.queue);
-        printf("\n╚═══════════════════════╚═════════════════════╝═══════════════════════╝\n");
+        printf("\n╚═══════════════════════╩═════════════════════╩═══════════════════════╝\n");
     }
 }
 
