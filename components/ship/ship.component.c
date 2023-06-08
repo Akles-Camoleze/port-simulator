@@ -6,6 +6,9 @@ Ship *new_ship() {
     ship->id = ship_id;
     ship->load = gen_number(4, 16);
     ship->stacks = (Stack *) malloc(STACKS_SHIP_QUANTITY * sizeof(Stack));
+    for (int i = 0; i < STACKS_SHIP_QUANTITY; ++i) {
+        new_stack(&(ship->stacks[i]));
+    }
     get_containers(ship);
     ship_id++;
     return ship;

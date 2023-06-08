@@ -11,6 +11,7 @@ structs/stack/stack.c\
 structs/queue/queue.c\
 structs/stack/stack.c\
 utils/utils.c\
+main.c
 
 OBJ = $(SRC:.c=.o)
 

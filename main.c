@@ -2,10 +2,6 @@
 #include "components/docks/docks.component.h"
 #include "components/cross/cross.component.h"
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-msc51-cpp"
-#pragma ide diagnostic ignored "EndlessLoop"
-
 int main() {
     srand(time(NULL));
     Docks docks;
@@ -37,5 +33,3 @@ int main() {
 
     return 0;
 }
-
-#pragma clang diagnostic pop
