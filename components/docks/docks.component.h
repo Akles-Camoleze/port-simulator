@@ -21,17 +21,45 @@ typedef struct Dock {
 
 typedef struct Dock Docks[DOCKS_QUANTITY];
 
-
+/**
+ * Inicializa as docas
+ * @param docks: ponteiro para docas a serem inicializadas
+ * @param list: ponteiro para lista de travessas
+ */
 void initialize_docks(Docks *docks, List *list);
 
+/**
+ * Recupera doca com menor tamanho de fila
+ * @param docks: ponteiro para as docas
+ * @return ponteiro para a doca de menor tamanho de fila
+ */
 Dock *get_smaller_dock(Docks *docks);
 
+/**
+ * Exibi as docas
+ * @param: Docas a serem exibidas
+ */
 void show_mooring_areas(Docks *docks);
 
+/**
+ * Realiza o processo de descarregamento de navios e caregamento das travessas
+ * @param docks: Docas a serem realizadas o processo
+ * @param crosses: travessas para o carregamento
+ */
 void hoist(Docks *docks, Crosses *crosses);
 
+/**
+ * Realiza o deslocamento da travessa, movimentação do carrinho
+ * @param dock: ponteiro para a doca a se realizar a operação
+ * @param cross: ponteiro para travessa a ser deslocada
+ */
 void to_transport(Dock *dock, Cross **cross);
 
+/**
+ * Recupera a média do tempo de espera das docas
+ * @param docks: docas a serem obtidas as médias
+ * @param crosses_average: média de tempo de espera das travessas
+ */
 void get_docks_averages(Docks *docks, float crosses_average);
 
 #endif //PORT_SIMULATOR_DOCKS_COMPONENT_H

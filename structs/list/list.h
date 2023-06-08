@@ -13,8 +13,18 @@ typedef struct List {
     int size;
 } List;
 
+/**
+ * Cria lista, alocando na memória
+ * @param list: ponteiro da lista a ser alocada
+ */
 void new_list(List *list);
 
+/**
+ * Adiciona travessa na lista
+ * @param list: ponteiro da lista a receber a travessa
+ * @param cross: ponteiro da travessa a ser adicionada
+ * @param tam: tamanho maximo da lista
+ */
 void to_list(List *list, Cross *cross, int max);
 
 #endif //PORT_SIMULATOR_LIST_H

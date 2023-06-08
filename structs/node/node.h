@@ -15,6 +15,7 @@ typedef struct Ship Ship;
 
 typedef struct Cross Cross;
 
+// Declarando todos os tipos de nós do programa
 DECLARE_NODE_TYPE(Container, container)
 DECLARE_NODE_TYPE(Ship, ship)
 DECLARE_NODE_TYPE(Cross, cross)
