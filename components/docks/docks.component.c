@@ -28,7 +28,7 @@ void show_mooring_areas(Docks *docks) {
         Dock dock = (*docks)[i];
         int cross_id = !empty(1, dock.current_cross) ? dock.current_cross->id : 0;
         printf("\n╔══════════╦═════════════════╦═══Doca %d═══╦════════════════╦══════════╗"
-               "\n║  TN: %02d  ║  Espera: %05.1f  ║  TC: %04d  ║  Carrinho: %02d  ║  TV: %02d  ║"
+               "\n║  TN: %02d  ║  Espera: %05.1f  ║  TC: %04d  ║  Carrinho: %03d ║  TV: %02d  ║"
                "\n╠══════════╩════════════╦════╩════════════╩═══╦════════════╩══════════╣"
                "\n║         Navio         ║        Carga        ║        TEspera        ║",
                i + 1,
