@@ -269,4 +269,9 @@ processos envolvidos nas operações portuárias, utilizando estruturas de dados
 utilização de estruturas de dados apropriadas possibilitou a gestão eficiente das operações portuárias, garantindo uma
 compreensão abrangente de todo o processo.
 
+### Referências
+
+- [Documentação C](https://devdocs.io/c/)
+- [C Completo e Total 3ª edição](https://www.inf.ufpr.br/lesoliveira/download/c-completo-total.pdf)
+
 *EncodedBy: Akles Camoleze*
